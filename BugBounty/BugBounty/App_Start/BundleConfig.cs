@@ -126,6 +126,42 @@ namespace BugBounty
                 "~/Scripts/Editor/easymde.min.js",
                 "~/Scripts/Support.js"
             }.Union(ejWaitingPopUp).Union(ejDialog).Union(ejUploadBox).ToArray()));
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/view-bug")
+            {
+                Orderer = customBundleOrder
+            }.Include(
+                         new List<string>
+           {
+                "~/Scripts/jQuery/jquery-1.10.2.min.js",
+                "~/Scripts/jQuery/jquery.validate.min.js",
+                "~/Scripts/Bootstrap/bootstrap.min.js",
+                "~/Scripts/Editor/easymde.min.js"
+           }.Union(ejWaitingPopUp).Union(ejDialog).Union(ejUploadBox).ToArray()));
+
+            bundles.Add(new StyleBundle("~/bundles/styles/validate").Include(
+                          "~/Content/Styles/EssentialJS/ej.theme.min.css",
+                          "~/Content/Styles/EssentialJS/ej.widgets.core.min.css",
+                          "~/Content/Styles/EssentialJS2/fusion-theme-compatability/ej.theme.css",
+                          "~/Content/Styles/Bootstrap/bootstrap.min.css",
+                          "~/Content/Styles/Fonts/font-RobotoRegular.css",
+                          "~/Content/Styles/Fonts/font-server.less",
+                          "~/Content/Styles/Fonts/variables.less",
+                          "~/Content/Styles/Validate.css",
+                          "~/Content/Styles/scss/global.min.css",
+                          "~/Content/Styles/LESS/Dialogs.less"
+                          ));
+
+            bundles.Add(new ScriptBundle("~/bundles/script/validate").Include(
+                          new List<string>
+            {
+                "~/Scripts/jQuery/jquery-1.10.2.min.js",
+                "~/Scripts/jQuery/jquery.validate.min.js",
+                "~/Scripts/Bootstrap/bootstrap.min.js",
+                "~/Scripts/Bootstrap/bootstrap-select.min.js",
+                "~/Scripts/Core/Server.Core.js",
+                "~/Scripts/Validate.js"
+            }.Union(ejDialog).Union(ejWaitingPopUp).ToArray()));
         }
 
         private class CustomBundleOrderer : IBundleOrderer

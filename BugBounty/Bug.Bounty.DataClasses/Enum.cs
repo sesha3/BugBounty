@@ -16,6 +16,15 @@
         General
     }
 
+    public enum Severity
+    {
+        UltraCritical = 1,
+        Critical,
+        High,
+        Medium,
+        Low
+    }
+
     public enum AggregateMethod
     {
         /// <summary>

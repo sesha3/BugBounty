@@ -1,0 +1,86 @@
+﻿.rate-dropdown {
+    display: inline-block;
+    width: 63%;
+    padding: 0px 5px 5px 50px;
+}
+
+.dropdown-menu {
+    width: 15%;
+    height: 15%;
+}
+
+.Head-icon {
+    margin-right: -60px;
+    float: right;
+}
+
+.rightAlign {
+    padding: 35px 0px 30px 10px;
+    float: right;
+}
+
+iframe {
+    border: none;
+}
+
+#bug-rate {
+    margin: 60px 10px 2px 60px;
+}
+
+.app-primary-button {
+    background: #0565ff;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    height: 28px;
+    line-height: 26px;
+    min-width: 90px;
+    outline: none;
+    text-align: center;
+    padding: 0 15px;
+    border: 1px solid #0450cc;
+}
+
+
+
+.app-secondary-button {
+    background: #fff;
+    border: 0;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    height: 28px;
+    line-height: 26px;
+    min-width: 90px;
+    outline: none;
+    text-align: center;
+    padding: 0 15px;
+    border: 1px solid #b3b3b3;
+}
+
+.glyphicon
+{
+display: none;
+}
+
+.check-mark
+{
+    display: none;
+}
+
+.glyphicon-ok::before
+{
+    content:none;
+}
+
+.rate-label {
+    position: absolute;
+    float: left
+}

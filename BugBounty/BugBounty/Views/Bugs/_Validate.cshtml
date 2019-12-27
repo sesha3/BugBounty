@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+    string[] names = Enum.GetNames(typeof(Severity));
+}
+<script>
+    var validateUrl = "@Url.Action("Validation", "Home")";
+</script>
+
+<div id="PopupContainer" class="dialog">
+    <div class="col-md-12 dialog-header">
+        <div class="col-xs-11 no-padding">
+            <input type="button" class="Head-icon" value="&#x2716;" />
+            <span class="PopupTitle">&#x2705; Validate</span>
+            <div class="report-name padding10 no-left-padding no-top-padding ellipsis" title="@ViewBag.FullBugName">@ViewBag.FullBugName</div>
+        </div>
+    </div>
+    <div>
+        <div id="bug-rate">
+            <label class="rate-label">Rate</label>
+            <div class="center-align">
+                <div class="rate-dropdown">
+                    <select id="select-rate" class="selectpicker full-width">
+                        @foreach (var name in names)
+                        {
+                            <option value="@name">@name</option>
+                        }
+                        @*<option value="1">Ultra Critical</option>
+                            <option value="2">Critical</option>
+                            <option value="3">High</option>
+                            <option value="4"></option>
+                            <option value="5">5</option>*@
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 dialog-footer no-right-padding no-left-padding dialog-footer-position" id="action-button-division">
+        <div class="col-xs-6 rightAlign">
+            <input type="button" title="" id="update-validation" class="app-primary-button" value="Save" />
+            <input type="button" id="CancelButton" title="" class="app-secondary-button PopupClose" value="Cancel" />
+        </div>
+    </div>
+
+</div>

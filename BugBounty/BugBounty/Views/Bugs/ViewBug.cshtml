@@ -6,10 +6,12 @@
 
 @section styles{
     @Styles.Render("~/Content/bugs-home")
+    @Styles.Render("~/bundles/styles/validate")
 }
 
 @section scripts{
-    @Scripts.Render("~/bundles/scripts/view-incident")
+    @Scripts.Render("~/bundles/scripts/view-bug")
+    @Scripts.Render("~/bundles/script/validate")
     <script src="~/Scripts/Bootstrap/bootstrap-select.min.js"></script>
     <script>
         var fileUploadUrl = "@Url.Action("Upload", "Home")";
@@ -41,7 +43,9 @@
                     <h3 class="">Description:</h3>
                     <div type="text" id="description" class="">@bug.Description</div>
                 </div>
-            </div>            
+            </div>
+            <button type="submit" id="bug-validate" class="app-primary-button pull-right">Validate</button>
         </div>
     </div>
+    @Html.Partial("../Bugs/_Validate")
 }
