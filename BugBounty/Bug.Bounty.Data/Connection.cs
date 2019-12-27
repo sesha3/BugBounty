@@ -5,6 +5,6 @@
 
     public class Connection
     {
-        public static string ConnectionString => "Data Source = " + AppDomain.CurrentDomain.BaseDirectory + WebConfigurationManager.AppSettings["AppDataPath"] + "BugReport.sdf; Password = syncfusion";
+        public static string ConnectionString => "Data Source = " + AppDomain.CurrentDomain.BaseDirectory + WebConfigurationManager.AppSettings["AppDataPath"] + "BugBounty.sdf; Password = syncfusion";
     }
 }

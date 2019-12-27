@@ -15,7 +15,7 @@
     {
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
 
-        public void AddBug(Bug bug)
+        public bool AddBug(Bug bug)
         {
             var bugResult = new Result();
             bug.Id = Guid.NewGuid();
@@ -25,16 +25,13 @@
                         { "Description", bug.Description },
                         { "Title", bug.Title },
                         { "PlatformId", (int) bug.Platform },
+                {"Image", bug.Attachments.Split('/').Last()},
                         { "CreatedUserId", bug.CreatedUserID },
                         { "IsActive", true }
                     };
 
             bugResult = DataProvider.ExecuteNonQuery(queryBuilder.AddToTable("Bug", values), Connection.ConnectionString);
-
-            if (!bugResult.Status)
-            {
-                //exception
-            }
+            return bugResult.Status;
         }
 
         public User AddUser(User user)
@@ -63,7 +60,7 @@
 
                     if (!userResult.Status)
                     {
-                        //exception
+                        return null;
                     }
 
                     return user;
@@ -77,7 +74,7 @@
             return user;
         }
 
-        public void UpdateBug(Bug bug)
+        public bool UpdateBug(Bug bug)
         {
             var updateColumn = new List<UpdateColumn>
             {
@@ -108,17 +105,11 @@
                         ColumnName = "Id",
                         Condition = Condition.Equals,
                         Value = bug.Id
-                    },
-                    new ConditionColumn
-                    {
-                        ColumnName = "Id",
-                        Condition = Condition.Equals,
-                        Value = bug.Id,
-                        LogicalOperator = LogicalOperator.AND
                     }
                 };
 
-            var s = queryBuilder.UpdateRowInTable("Bug", updateColumn, whereColumns);
+            var bugResult = DataProvider.ExecuteNonQuery(queryBuilder.UpdateRowInTable("Bug", updateColumn, whereColumns), Connection.ConnectionString);
+            return bugResult.Status;
         }
 
         public List<Bug> GetBugs(Platform platform, Guid? userId = null)
