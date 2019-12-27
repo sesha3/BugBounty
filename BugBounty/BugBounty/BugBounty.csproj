@@ -155,6 +155,7 @@
     <Content Include="Content\images\down.svg" />
     <Content Include="Content\images\ham-menu.png" />
     <Content Include="Content\images\ham-menu.svg" />
+    <Content Include="Content\images\login_logo.svg" />
     <Content Include="Content\images\search.svg" />
     <Content Include="Content\images\up.svg" />
     <Content Include="Content\Styles\Bootstrap\bootstrap-select.css" />
