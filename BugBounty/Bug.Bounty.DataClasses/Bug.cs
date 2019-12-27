@@ -63,5 +63,11 @@
             get;
             set;
         }
+
+        public string Attachments
+        {
+            get;
+            set;
+        }
     }
 }
