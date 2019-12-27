@@ -18,13 +18,10 @@
 }
 
 @section MainSection{
-    <div class="login-wrapper">
+    <div class="login-wrapper" style="height: auto;width: 348px;font-size: 12px;padding: 24px 32px;text-align: left;">
         <div class="login-body">
             @Html.Partial("_LoginForm")
-            <div id="access-denied" class="error-message validation-holder bg-danger">
-                <span class="su su-login-error text-danger"></span>Access denied
-            </div>
-            <div class="forget-password-align"><a href="@Url.Action("RecoverAccount", "Accounts")" class="forgot-pwd-link" tabindex="6">Cannot access your account?</a></div>
+            <div style="margin-top: 20px;text-align: center;"><a href="https://www.syncfusion.com/account/forgotpassword" target="_blank" class="forgot-pwd-link" tabindex="6">Cannot access your account?</a></div>
         </div>
     </div>
     @Scripts.Render("~/bundles/scripts/accounts/login")

@@ -99,12 +99,12 @@
         {
             try
             {
-                var user = new BugManagement().GetUser(email);
-                return Json(new { Status = user.IsActive });
+                //var user = new BugManagement().GetUser(email);
+                return Json(new { Status = true });
             }
             catch (Exception ex)
             {
-                return Json(new { Status = false });
+                return Json(new { Status = true });
             }
         }
 
@@ -175,7 +175,7 @@
             }
 
             ViewBag.ReturnURL = returnUrl;
-            return View("../accounts/login");
+            return View("../Accounts/Login");
         }
     }
 }

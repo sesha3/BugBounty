@@ -5,7 +5,7 @@
 
 <div id="alert-notification"></div>
 <form method="post" id="login-form" name="loginForm" class="login-form" action="@ViewBag.PostAction" onsubmit="return FormValidate()">
-    <h1 class="login-header">Log in to your account</h1>
+    <h1 class="login-header" style="font-size: 20px;color: #0565FF;margin-top: -12px;margin-bottom: 30px;font-weight: 600;line-height: 30px;padding-bottom: 8px;">Log in to your account</h1>
     <span id="message" class="text-center col-xs-12 validation-holder">
         @if (!string.IsNullOrWhiteSpace((string)TempData["Message"]))
         {
@@ -21,17 +21,17 @@
         }
     </span>
     <div class="login-fields">
-        <div class="input-field-form email">
+        <div class="input-field-form email" style="position: relative;padding: 0px 0px 24px 0px;">
             <input id="hidden-email" type="hidden" value="@uname" />
             <input type="text" required md-no-asterisk ng-model="uname" value="@uname" name="email" id="login-email" placeholder="Email address" class="form-control" maxlength="100" />
-            <div class="mail-loader-div"></div>
+            <div class="mail-loader-div" style="background: url(images/textboxloader.gif) no-repeat right center;position: absolute;top: 6px;right: 10px;width: 20px;height: 20px;"></div>
             <span id="error-email" style="display: @TempData["errorUserStatus"]">
                 @TempData["errorUserName"]
             </span>
             <span class="validation-holder"></span>
             <span class="special-char-msg-login"></span>
         </div>
-        <div class="input-field-form" id="password-field" style="display: @(TempData["errorPasswordStatus"] != null ? "block" : "none" )">
+        <div class="input-field-form" id="password-field" style="position: relative;padding-bottom: 24px;display: @(TempData["errorPasswordStatus"] != null ? "block" : "none" )">
             <input required md-no-asterisk ng-model="pwd" name="password" type="password" id="login-password" placeholder="Password" class="form-control">
             <span class="su su-eye login-password-show show-hide-password special-char"></span>
             <span id="error-password" style="display: @TempData["errorPasswordStatus"]">
@@ -46,7 +46,7 @@
             </div>
         </div>
         <input type="hidden" name="clientId" value="@ViewBag.ClientId" />
-        <button class="login-button proceed-button" ng-click="dsAuth()" type="submit" name="Submit" id="login-button">
+        <button style="margin: 50px;width: 150px;background: #0565FF;border: 1px solid #0851D0;border-radius: 5px;color: #FFF;height: 32px;outline: none;font-size: 14px;font-weight: 700;cursor: pointer;display: block;" class="login-button proceed-button" ng-click="dsAuth()" type="submit" name="Submit" id="login-button">
             Continue
         </button>
     </div>

@@ -153,6 +153,7 @@
     <Content Include="Content\General\bootstrap.min.css" />
     <Content Include="Content\images\ham-menu.png" />
     <Content Include="Content\images\ham-menu.svg" />
+    <Content Include="Content\images\login_logo.svg" />
     <Content Include="Content\images\search.svg" />
     <Content Include="Content\Styles\Bootstrap\bootstrap-select.css" />
     <Content Include="Content\Styles\Bootstrap\Bootstrap-theme.css" />

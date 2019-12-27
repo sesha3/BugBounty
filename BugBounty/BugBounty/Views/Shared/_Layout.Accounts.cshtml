@@ -4,7 +4,7 @@
     var headerLogo = (ViewBag.LoginLogo != null) ? ViewBag.LoginLogo : CloudAppConfig.FallbackLoginLogoUrl;
 }
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -101,13 +101,13 @@
         }
     </style>
 </head>
-<body id="body">
+<body id="body" style="height: 100%;position: relative;padding-bottom: 50px;background: linear-gradient(-215deg, #FBFEFF 0%, #EEF2F3 100%);">
     @Html.Partial("../Shared/_LocalizationContent")
-    <div class="account-parent @(includeHeader ? "header-padding" : string.Empty)">
-        <div class="account-child">
-            <div class="account-bg">
-                <div class="account-header">
-                    <img alt="Login Logo" src="@headerLogo" onerror="if (this.src != '@Url.Content(CloudAppConfig.FallbackLoginLogoUrl)') this.src = '@Url.Content(CloudAppConfig.FallbackLoginLogoUrl)';" />
+    <div class="account-parent @(includeHeader ? "header-padding" : string.Empty)" style="height: 100%;width: 100%;display: table;">
+        <div class="account-child" style="display: table-cell;vertical-align: middle;text-align: center;">
+            <div class="account-bg" style="font-family: RobotoRegular;font-size: 12px;margin: 0 auto;display: inline-block;">
+                <div class="account-header" style="margin-bottom: 20px;">
+                    <img style="height: 45px;" alt="Login Logo" src="~/Content/images/login_logo.svg" />
                 </div>
                 @RenderSection("MainSection", true)
             </div>

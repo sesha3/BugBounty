@@ -53,8 +53,7 @@ namespace BugBounty
                 "~/Content/Styles/Less/NewThemes/Mixins.less",
                 "~/Content/Styles/LESS/Accounts/footer.less",
                 "~/Content/Styles/EssentialJS/ej.theme.min.css",
-                "~/Content/Styles/EssentialJS/ej.widgets.core.min.css",
-                "~/Content/Styles/LESS/Accounts/Layout.less"));
+                "~/Content/Styles/EssentialJS/ej.widgets.core.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/accounts").Include(new List<string>
             {
