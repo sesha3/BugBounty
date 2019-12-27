@@ -14,7 +14,7 @@ namespace Bug.Bounty.Data
             var appDataFolderPath = AppDomain.CurrentDomain.BaseDirectory + WebConfigurationManager.AppSettings["AppDataPath"];
             var connStr = "Data Source = " + appDataFolderPath + "BugBounty.sdf; Password = syncfusion";
 
-            if (Directory.Exists(appDataFolderPath) == false)
+            if (Directory.Exists(appDataFolderPath + "//BugBounty.sdf") == false)
             {
                 Directory.CreateDirectory(appDataFolderPath);
                

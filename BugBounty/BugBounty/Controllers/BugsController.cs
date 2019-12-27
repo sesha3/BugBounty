@@ -1,8 +1,11 @@
 ﻿namespace BugBounty.Controllers
 {
     using Bug.Bounty.Base;
+    using Bug.Bounty.DataClasses;
+    using Newtonsoft.Json;
     using System;
     using System.Web.Mvc;
+
 
     public class BugsController : Controller
     {
@@ -14,20 +17,39 @@
 
         public ActionResult Index()
         {
-            var userId = Guid.Parse("7e359732-edec-4d8c-a6f8-a7ae075a4761");
+            var userId = Guid.Parse("f1b74874-5fff-4af5-a718-da8d7f35c49c");
             ViewBag.BugsList = _bugManagement.GetBugs(_bugManagement.GetUserDetails(userId).Platform, userId);
             return View();
         }
 
         public ActionResult CreateBug()
         {
+            string[] names = Enum.GetNames(typeof(Platform));
+            ViewBag.Platforms = names;
             return View();
         }
 
-        [HttpPost]
-        public JsonResult PostBug()
+        public void Upload()
         {
-            return new JsonResult { Data = true };
+            new FileUpload().ProcessRequest(System.Web.HttpContext.Current);
+        }
+
+        [HttpPost]
+        public JsonResult PostBug(string bugData)
+        {
+            var bug = JsonConvert.DeserializeObject<Bug>(bugData);
+            bug.CreatedUserID = Guid.Parse("f1b74874-5fff-4af5-a718-da8d7f35c49c");
+            bool result = false;
+            if (bug.Id != null && bug.Id != Guid.Empty)
+            {
+                result = _bugManagement.UpdateBug(bug);
+            }
+            else
+            {
+                result = _bugManagement.AddBug(bug);
+            }
+
+            return new JsonResult { Data = result };
         }
 
         [HttpPost]
@@ -41,8 +63,9 @@
             return View();
         }
 
-        public ActionResult ViewBug()
+        public ActionResult ViewBug(Guid id)
         {
+            ViewBag.Bug = _bugManagement.GetBug(id);
             return View();
         }
 

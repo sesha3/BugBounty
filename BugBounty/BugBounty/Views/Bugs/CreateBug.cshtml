@@ -1,0 +1,69 @@
+﻿@{
+    var supportFilePath = "https://app.boldbi.com/downloads/support/becde0bf-39a1-455b-a796-603fe3f8e868/";
+    var platforms = ViewBag.Platforms;
+}
+
+@section styles{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/style.css">
+    @Styles.Render("~/bundles/styles/view-incident")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/scripts/view-incident")
+    <script>
+        var fileUploadUrl = "@Url.Action("Upload", "Bugs")";
+        var saveBugReportUrl = "@Url.Action("PostBug", "Bugs")"
+        var supportFilePath = "@supportFilePath";
+        var bugListUrl = "@Url.Action("Index", "Bugs")"
+    </script>
+}
+@section MainSection{
+    <div id="bug-report">
+        <h3>Bug Reporting</h3>
+        <div id="bug-title">
+            <label class="label">Title:</label>
+            <input type="text" id="title" class="form-control popup-label filename-text">
+        </div>
+        <div id="bug-platform">
+            <label class="label">Platform:</label>
+            <div class="platform-dropdown">
+                <select id="select-option" class="selectpicker full-width">
+                    @foreach (var platform in platforms)
+                    {
+                        <option value="@platform">@platform</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div id="description">
+            <label class="label">Description:</label>
+            <div id="editor" class="editors">
+                <div class="reply-message">
+                    <textarea name="message" id="updateMde" form="incidentUpdateForm"></textarea>
+                </div>
+                <div class="align-middle col-xs-12 no-padding form-div">
+                    <div class="col-xs-12 no-padding attach-file-container">
+                        <label class="label">Attach File:</label>
+                        <div class="col-xs-6 no-padding attach-file-input" id="reply-input-group">
+                            <div class="input-group">
+                                <input type="text" id="reply-attach-file-textbox" class="form-control popup-label filename-text" value="Browse file path" readonly>
+                                <span id="reply-attach-file-addon" class="input-group-addon">
+                                    <div id="reply-attach-file" class="settings-upload-button">
+                                    </div>
+                                </span>
+                                <span class="sm-loader" style="display:none"></span>
+                            </div>
+                            <span class="col-xs-12 info no-padding">
+                                Allowed file types: *.png,*.jpeg,*.jpg,*.zip;
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="support-file-path-update" >
+        <div class="col-xs-6 create-report">
+            <button type="button" id="save-cancel" class="secondary-button pull-right">Cancel</button>
+            <button type="submit" id="save-confirm" onclick="saveBugReport()" class="primary-button pull-right" disabled="disabled">Save</button>
+        </div>
+    </div>
+}
