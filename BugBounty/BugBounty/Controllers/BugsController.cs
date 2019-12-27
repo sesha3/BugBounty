@@ -6,6 +6,7 @@
     using System;
     using System.Web.Mvc;
 
+
     public class BugsController : Controller
     {
         private BugManagement _bugManagement = new BugManagement();
@@ -62,8 +63,9 @@
             return View();
         }
 
-        public ActionResult ViewBug()
+        public ActionResult ViewBug(Guid id)
         {
+            ViewBag.Bug = _bugManagement.GetBug(id);
             return View();
         }
 
