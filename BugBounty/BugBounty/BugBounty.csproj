@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,6 +45,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -103,9 +124,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -116,36 +134,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Accounts\AccountsController.cs" />
     <Compile Include="Controllers\BugsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BugManagement.cs" />
-    <Compile Include="Models\Connection.cs" />
-    <Compile Include="Models\Database.cs" />
-    <Compile Include="Models\DataClass\ConditionColumn.cs" />
-    <Compile Include="Models\DataClass\GroupByColumn.cs" />
-    <Compile Include="Models\DataClass\JoinColumn.cs" />
-    <Compile Include="Models\DataClass\JoinSpecification.cs" />
-    <Compile Include="Models\DataClass\OrderByColumns.cs" />
-    <Compile Include="Models\DataClass\Pagination.cs" />
-    <Compile Include="Models\DataClass\Result.cs" />
-    <Compile Include="Models\DataClass\SelectedColumn.cs" />
-    <Compile Include="Models\DataClass\UpdateColumn.cs" />
-    <Compile Include="Models\DataProvider.cs" />
-    <Compile Include="Models\QueryBuilder.cs" />
-    <Compile Include="Models\DataClass\User.cs" />
-    <Compile Include="Models\DataClass\Bug.cs" />
-    <Compile Include="Models\DataClass\Enum.cs" />
-    <Compile Include="Models\QueryHelper.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,14 +154,113 @@
     <Content Include="Content\images\ham-menu.png" />
     <Content Include="Content\images\ham-menu.svg" />
     <Content Include="Content\images\search.svg" />
+    <Content Include="Content\Styles\Bootstrap\bootstrap-select.css" />
+    <Content Include="Content\Styles\Bootstrap\Bootstrap-theme.css" />
+    <Content Include="Content\Styles\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Styles\Editor\easymde.min.css" />
+    <Content Include="Content\Styles\EssentialJS\common-images\ejicons.svg" />
+    <Content Include="Content\Styles\EssentialJS\ej.theme.min.css" />
+    <Content Include="Content\Styles\EssentialJS\ej.widgets.core.min.css" />
+    <Content Include="Content\Styles\EssentialJS\images\ajax-loader.gif" />
+    <Content Include="Content\Styles\EssentialJS\images\checkedtick.png" />
+    <Content Include="Content\Styles\EssentialJS\images\gradient.png" />
+    <Content Include="Content\Styles\EssentialJS\images\waitingpopup.gif" />
+    <Content Include="Content\Styles\EssentialJS\images\waitingpopup_small.gif" />
+    <Content Include="Content\Styles\Fonts\font-RobotoRegular.css" />
+    <Content Include="Content\Styles\Jcrop\images\jcrop.gif" />
+    <Content Include="Content\Styles\Jcrop\Jcrop.min.css" />
+    <Content Include="Content\Styles\LESS\Accounts\images\textboxLoader.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\General\Site.css" />
+    <Content Include="Scripts\Accounts\ChangePassword.js" />
+    <Content Include="Scripts\Accounts\ForgotPassword.js" />
+    <Content Include="Scripts\Accounts\Login.js" />
+    <Content Include="Scripts\Accounts\SyncfusionLogin.js" />
+    <Content Include="Scripts\Administration\DatabaseSettings.js" />
+    <Content Include="Scripts\Administration\KerberosAuthentication.js" />
+    <Content Include="Scripts\Administration\NotificationSettings.js" />
+    <Content Include="Scripts\Administration\ScheduleSynchronization.js" />
+    <Content Include="Scripts\Administration\Storage.js" />
+    <Content Include="Scripts\Administration\SystemSettings.js" />
+    <Content Include="Scripts\Administration\UserSettings.js" />
+    <Content Include="Scripts\AngularJS\angular-sanitize.min.js" />
+    <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\AngularJS\ej.widget.angular.min.js" />
+    <Content Include="Scripts\AngularJS\loginApp.js" />
+    <Content Include="Scripts\AngularJS\serverApp.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-select.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Core\MobileMenu.js" />
+    <Content Include="Scripts\Core\Placeholder.js" />
+    <Content Include="Scripts\Core\Server.Core.js" />
+    <Content Include="Scripts\Editor\easymde.min.js" />
+    <Content Include="Scripts\EssentialJS\common\ej.core.min.js" />
+    <Content Include="Scripts\EssentialJS\common\ej.data.min.js" />
+    <Content Include="Scripts\EssentialJS\common\ej.draggable.min.js" />
+    <Content Include="Scripts\EssentialJS\common\ej.globalize.min.js" />
+    <Content Include="Scripts\EssentialJS\common\ej.scroller.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.autocomplete.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.button.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.checkbox.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.datepicker.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.datetimepicker.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.dialog.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.dropdownlist.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.editor.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.excelfilter.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.grid.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.menu.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.pager.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.radiobutton.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.timepicker.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.toolbar.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.tooltip.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.treeview.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.uploadbox.min.js" />
+    <Content Include="Scripts\EssentialJS\ej.waitingpopup.min.js" />
     <Content Include="Scripts\General\bootstrap.bundle.min.js" />
     <Content Include="Scripts\General\bootstrap.js" />
     <Content Include="Scripts\General\bootstrap.min.js" />
     <Content Include="Content\Bugs\BugsHome.less" />
+    <Content Include="Content\Styles\EssentialJS\common-images\ejicons.eot" />
+    <Content Include="Content\Styles\EssentialJS\common-images\ejicons.ttf" />
+    <Content Include="Content\Styles\EssentialJS\common-images\ejicons.woff" />
+    <Content Include="Content\Styles\Fonts\font-Server.less" />
+    <Content Include="Content\Styles\Fonts\variables.less" />
+    <Content Include="Content\Styles\LESS\Accounts\AccountActivation.less" />
+    <Content Include="Content\Styles\LESS\Accounts\ChangePassword.less" />
+    <Content Include="Content\Styles\LESS\Accounts\CodeConfirmation.less" />
+    <Content Include="Content\Styles\LESS\Accounts\footer.less" />
+    <Content Include="Content\Styles\LESS\Accounts\ForgetPassword.less" />
+    <Content Include="Content\Styles\LESS\Accounts\Layout.less" />
+    <Content Include="Content\Styles\LESS\Accounts\Login.less" />
+    <Content Include="Content\Styles\LESS\Accounts\PrivacyPolicyConfirmation.less" />
+    <Content Include="Content\Styles\LESS\Accounts\ResetPassword.less" />
+    <Content Include="Content\Styles\LESS\Accounts\SyncfusionLogin.less" />
+    <Content Include="Content\Styles\LESS\Admin\LicenseSettings.less" />
+    <Content Include="Content\Styles\LESS\Admin\NotificationSettings.less" />
+    <Content Include="Content\Styles\LESS\Admin\SAMLSettings.less" />
+    <Content Include="Content\Styles\LESS\Admin\SystemSettings.less" />
+    <Content Include="Content\Styles\LESS\Admin\UserSettings.less" />
+    <Content Include="Content\Styles\LESS\Components\PageWrapper.less" />
+    <Content Include="Content\Styles\LESS\Components\Popup.less" />
+    <Content Include="Content\Styles\LESS\Components\Radiobutton.less" />
+    <Content Include="Content\Styles\LESS\Components\Switch.less" />
+    <Content Include="Content\Styles\LESS\Grid.less" />
+    <Content Include="Content\Styles\LESS\Mixins.less" />
+    <Content Include="Content\Styles\LESS\NewMaster.less" />
+    <Content Include="Content\Styles\LESS\NewThemes\ElementColor.less" />
+    <Content Include="Content\Styles\LESS\NewThemes\ElementSize.less" />
+    <Content Include="Content\Styles\LESS\NewThemes\Mixins.less" />
+    <Content Include="Content\Styles\LESS\PasswordPolicy.less" />
+    <Content Include="Content\Styles\LESS\PasswordPolicyRules.less" />
+    <Content Include="Content\Styles\LESS\Profile.less" />
+    <Content Include="Content\Styles\LESS\Themes\Default.less" />
+    <Content Include="Content\Styles\LESS\UserManagement.less" />
+    <Content Include="Content\Styles\LESS\Variables\ElementSize.less" />
+    <Content Include="Content\Styles\LESS\Variables\FontSize.less" />
     <None Include="Scripts\General\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\General\jquery-3.3.1.js" />
     <Content Include="Scripts\General\jquery-3.3.1.min.js" />
@@ -176,6 +272,27 @@
     <Content Include="Scripts\General\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\General\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\General\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Jcrop\Jcrop.min.js" />
+    <Content Include="Scripts\jQuery\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jQuery\jquery.easing-1.3.min.js" />
+    <Content Include="Scripts\jQuery\jquery.globalize.min.js" />
+    <Content Include="Scripts\jQuery\jquery.validate.min.js" />
+    <Content Include="Scripts\jQuery\jsrender.min.js" />
+    <Content Include="Scripts\Password\ChangePassword.js" />
+    <Content Include="Scripts\Password\PasswordPolicy.js" />
+    <Content Include="Scripts\Password\ShowHidePassword.js" />
+    <Content Include="Scripts\System\CheckMailSettings.js" />
+    <Content Include="Scripts\User\AccountActivation.js" />
+    <Content Include="Scripts\User\ActiveDirectoryUserImport.js" />
+    <Content Include="Scripts\User\DeleteUserData.js" />
+    <Content Include="Scripts\User\EditProfile.js" />
+    <Content Include="Scripts\User\ManageAccount.js" />
+    <Content Include="Scripts\User\SynchronizeUsers.js" />
+    <Content Include="Scripts\User\UserDelete.js" />
+    <Content Include="Scripts\User\UserImportDatabase.js" />
+    <Content Include="Scripts\User\UserManagement.js" />
+    <Content Include="Scripts\User\UserManagementProfile.js" />
+    <Content Include="Scripts\User\UserNotificationSettings.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -188,6 +305,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Bugs\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Shared\_Layout.Accounts.cshtml" />
+    <Content Include="Views\Shared\_LocalizationContent.cshtml" />
+    <Content Include="Views\Shared\_LoginForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -204,6 +325,24 @@
     <None Include="packages.config" />
     <Content Include="Scripts\General\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\General\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bug.Bounty.Base\Bug.Bounty.Base.csproj">
+      <Project>{1968F817-FF0A-4C88-B142-7F71FBD961A5}</Project>
+      <Name>Bug.Bounty.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bug.Bounty.DataClasses\Bug.Bounty.DataClasses.csproj">
+      <Project>{F4345105-7514-4AAA-82B9-BEEF50913DE3}</Project>
+      <Name>Bug.Bounty.DataClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bug.Bounty.Data\Bug.Bounty.Data.csproj">
+      <Project>{8851D984-5717-41C6-A9A1-5A7D4A1E103F}</Project>
+      <Name>Bug.Bounty.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bug.Bounty.LoginService\Bug.Bounty.LoginService.csproj">
+      <Project>{57EEF6D8-6EEF-4E0D-9688-77C286DC709A}</Project>
+      <Name>Bug.Bounty.LoginService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -233,12 +372,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     <ItemGroup>
       <RoslynFiles Include="$(CscToolPath)\*" />

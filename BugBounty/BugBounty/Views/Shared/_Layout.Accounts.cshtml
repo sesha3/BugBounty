@@ -1,0 +1,117 @@
+﻿@using Bug.Bounty.Base;
+@{
+    var includeHeader = ViewBag.IncludeHeader != null ? ViewBag.IncludeHeader : false;
+    var headerLogo = (ViewBag.LoginLogo != null) ? ViewBag.LoginLogo : CloudAppConfig.FallbackLoginLogoUrl;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @RenderSection("meta", false)
+    <title>
+        @ViewBag.Title
+    </title>
+    @Styles.Render("~/Content/accounts-layout")
+    @RenderSection("styles", false)
+    @Scripts.Render("~/bundles/scripts/accounts")
+    @RenderSection("scripts", false)
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+            var layoutBodyWaitingPopupTemplateId = createLoader("body");
+            $("#body").ejWaitingPopup({ template: $("#" + layoutBodyWaitingPopupTemplateId) });
+        });
+    </script>
+    <style>
+        .loader-icon {
+            display: block;
+        }
+
+        .loader-icon {
+            left: 0px !important;
+            position: relative;
+            margin: 0px auto;
+            width: 54px;
+            height: 54px;
+        }
+
+            .loader-icon .circular {
+                -webkit-animation: rotate 2s linear infinite;
+                animation: rotate 2s linear infinite;
+                height: 54px;
+                width: 54px;
+                position: relative;
+            }
+
+            .loader-icon .path {
+                stroke-dasharray: 1,200;
+                stroke-dashoffset: 0;
+                -webkit-animation: dash 1.5s ease-in-out infinite;
+                animation: dash 1.5s ease-in-out infinite;
+                stroke: #5592FB;
+                stroke-linecap: square;
+            }
+
+        @@keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @@-webkit-keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes dash {
+            0% {
+                stroke-dasharray: 1,200;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 89,200;
+                stroke-dashoffset: -35;
+            }
+
+            100% {
+                stroke-dasharray: 89,200;
+                stroke-dashoffset: -124;
+            }
+        }
+
+        @@-webkit-keyframes dash {
+            0% {
+                stroke-dasharray: 1,200;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 89,200;
+                stroke-dashoffset: -35;
+            }
+
+            100% {
+                stroke-dasharray: 89,200;
+                stroke-dashoffset: -124;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    @Html.Partial("../Shared/_LocalizationContent")
+    <div class="account-parent @(includeHeader ? "header-padding" : string.Empty)">
+        <div class="account-child">
+            <div class="account-bg">
+                <div class="account-header">
+                    <img alt="Login Logo" src="@headerLogo" onerror="if (this.src != '@Url.Content(CloudAppConfig.FallbackLoginLogoUrl)') this.src = '@Url.Content(CloudAppConfig.FallbackLoginLogoUrl)';" />
+                </div>
+                @RenderSection("MainSection", true)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

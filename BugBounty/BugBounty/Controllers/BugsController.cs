@@ -1,5 +1,6 @@
 ﻿namespace BugBounty.Controllers
 {
+    using Bug.Bounty.Base;
     using System;
     using System.Web.Mvc;
 
