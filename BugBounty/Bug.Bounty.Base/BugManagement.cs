@@ -15,7 +15,7 @@
     {
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
 
-        public void AddBug(Bug bug)
+        public bool AddBug(Bug bug)
         {
             var bugResult = new Result();
             bug.Id = Guid.NewGuid();
@@ -30,11 +30,7 @@
                     };
 
             bugResult = DataProvider.ExecuteNonQuery(queryBuilder.AddToTable("Bug", values), Connection.ConnectionString);
-
-            if (!bugResult.Status)
-            {
-                //exception
-            }
+            return bugResult.Status;
         }
 
         public User AddUser(User user)
@@ -77,7 +73,7 @@
             return user;
         }
 
-        public void UpdateBug(Bug bug)
+        public bool UpdateBug(Bug bug)
         {
             var updateColumn = new List<UpdateColumn>
             {
@@ -108,17 +104,138 @@
                         ColumnName = "Id",
                         Condition = Condition.Equals,
                         Value = bug.Id
-                    },
-                    new ConditionColumn
-                    {
-                        ColumnName = "Id",
-                        Condition = Condition.Equals,
-                        Value = bug.Id,
-                        LogicalOperator = LogicalOperator.AND
                     }
                 };
 
-            var s = queryBuilder.UpdateRowInTable("Bug", updateColumn, whereColumns);
+            var bugResult = DataProvider.ExecuteNonQuery(queryBuilder.UpdateRowInTable("Bug", updateColumn, whereColumns), Connection.ConnectionString);
+            return bugResult.Status;
+        }
+
+        public Bug GetBug(Guid bugId)
+        {
+            var bug = new Bug();
+            try
+            {
+                var whereColumns = new List<ConditionColumn>
+                {
+                    new ConditionColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "Id",
+                        Condition = Condition.Equals,
+                        Value = bugId
+                    }
+                };
+
+                var selected = new List<SelectedColumn>
+                {
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "Id"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "Title"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "Description"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "CreatedUserId"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "CreatedUserTable",
+                        ColumnName = "DisplayName",
+                        AliasName = "CreatedUser"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "ValidateUserId"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "ValidateUserTable",
+                        ColumnName = "DisplayName",
+                        AliasName = "ValidatedUser"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "Severity"
+                    },
+                    new SelectedColumn
+                    {
+                        TableName = "Bug",
+                        ColumnName = "PlatformId"
+                    }
+                };
+
+                var joinSpecification = new List<JoinSpecification>
+                {
+                    new JoinSpecification
+                    {
+                        Table = "User",
+                        Column = new List<JoinColumn>
+                        {
+                            new JoinColumn
+                            {
+                                TableName = "User",
+                                JoinedColumn = "Id",
+                                Operation = Condition.Equals,
+                                ParentTableColumn = "CreatedUserId",
+                                ParentTable = "Bug"
+                            }
+                        },
+                        JoinType = JoinType.Left,
+                        JoinTableAliasName = "CreatedUserTable"
+                    },
+                    new JoinSpecification
+                    {
+                        Table = "User",
+                        Column = new List<JoinColumn>
+                        {
+                            new JoinColumn
+                            {
+                                TableName = "User",
+                                JoinedColumn = "Id",
+                                Operation = Condition.Equals,
+                                ParentTableColumn = "ValidateUserId",
+                                ParentTable = "Bug"
+                            }
+                        },
+                        JoinType = JoinType.Left,
+                        JoinTableAliasName = "ValidateUserTable"
+                    }
+                };
+
+                var result = DataProvider.ExecuteReaderQuery(queryBuilder.ApplyWhereClause(queryBuilder.ApplyMultipleJoins("Bug", selected, joinSpecification), whereColumns));
+                bug = result.DataTable.AsEnumerable()
+                  .Select(row => new Bug
+                  {
+                      Id = Guid.Parse(row.Field<object>("Id").ToString()),
+                      Title = row.Field<string>("Title"),
+                      Description = row.Field<string>("Description"),
+                      CreatedUser = row.Field<string>("CreatedUser"),
+                      ValidatedUser = row.Field<string>("ValidatedUser"),
+                      CreatedUserID = Guid.Parse(row.Field<object>("CreatedUserID").ToString()),
+                      ValidatedUserID = row.Field<object>("ValidateUserId") != null ? Guid.Parse(row.Field<object>("ValidateUserId").ToString()) : Guid.Empty,
+                      Severity = row.Field<object>("Severity") != null ? int.Parse(row.Field<object>("Severity").ToString()) : 0,
+                      Platform = (Platform)Enum.Parse(typeof(Platform), row.Field<object>("PlatformId").ToString())
+                  }).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return bug;
         }
 
         public List<Bug> GetBugs(Platform platform, Guid? userId = null)

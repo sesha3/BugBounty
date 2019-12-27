@@ -1,8 +1,10 @@
 ﻿namespace BugBounty.Controllers
 {
     using Bug.Bounty.Base;
+    using Newtonsoft.Json;
     using System;
     using System.Web.Mvc;
+    using Bug.Bounty.DataClasses;
 
     public class BugsController : Controller
     {
@@ -25,9 +27,20 @@
         }
 
         [HttpPost]
-        public JsonResult PostBug()
+        public JsonResult PostBug(string bugData)
         {
-            return new JsonResult { Data = true };
+            var bug = JsonConvert.DeserializeObject<Bug>(bugData);
+            bool result = false;
+            if (bug.Id != null && bug.Id != Guid.Empty)
+            {
+                result = _bugManagement.UpdateBug(bug);
+            }
+            else
+            {
+                result = _bugManagement.AddBug(bug);
+            }
+
+            return new JsonResult { Data = result };
         }
 
         [HttpPost]
@@ -41,8 +54,9 @@
             return View();
         }
 
-        public ActionResult ViewBug()
+        public ActionResult ViewBug(Guid id)
         {
+            ViewBag.Bug = _bugManagement.GetBug(id);
             return View();
         }
 

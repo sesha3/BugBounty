@@ -151,9 +151,11 @@
     <Content Include="Content\General\bootstrap-theme.min.css" />
     <Content Include="Content\General\bootstrap.css" />
     <Content Include="Content\General\bootstrap.min.css" />
+    <Content Include="Content\images\down.svg" />
     <Content Include="Content\images\ham-menu.png" />
     <Content Include="Content\images\ham-menu.svg" />
     <Content Include="Content\images\search.svg" />
+    <Content Include="Content\images\up.svg" />
     <Content Include="Content\Styles\Bootstrap\bootstrap-select.css" />
     <Content Include="Content\Styles\Bootstrap\Bootstrap-theme.css" />
     <Content Include="Content\Styles\Bootstrap\bootstrap.min.css" />
@@ -309,6 +311,7 @@
     <Content Include="Views\Shared\_Layout.Accounts.cshtml" />
     <Content Include="Views\Shared\_LocalizationContent.cshtml" />
     <Content Include="Views\Shared\_LoginForm.cshtml" />
+    <Content Include="Views\Bugs\ViewBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

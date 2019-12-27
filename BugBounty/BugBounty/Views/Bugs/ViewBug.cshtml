@@ -1,0 +1,49 @@
+﻿@{
+    var bug = ViewBag.Bug as Bug;
+    ViewBag.Title = bug.Title + "Bug bounty";
+    var supportFilePath = "";
+}
+
+@section styles{
+    @Styles.Render("~/Content/bugs-home")
+    @Styles.Render("~/bundles/styles/view-incident")
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/style.css">
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/scripts/view-incident")
+    <script src="~/Scripts/Bootstrap/bootstrap-select.min.js"></script>
+    <script>
+        var fileUploadUrl = "@Url.Action("Upload", "Home")";
+        var saveBugReportUrl = "@Url.Action("CreateReport", "Home")"
+        var supportFilePath = "@supportFilePath";
+    </script>
+}
+
+
+
+@section MainSection{
+    <div class="jumbotron">
+        <div id="bug-report">
+            <div class="vote-container">
+                <button class="upvote-button"><img src="~/Content/images/up.svg" /></button>
+                <button class="downvote-button"><img src="~/Content/images/down.svg" /></button>
+            </div>
+            <div class="bug-detail-container">
+                <h3>Bug Details</h3>
+                <div id="bug-title">
+                    <h3 class="">Title:</h3>
+                    <div type="text" id="title" class="">@bug.Title</div>
+                </div>
+                <div id="bug-platform">
+                    <h3 class="">Platform:</h3>
+                    <div type="text" id="platform" class="">@bug.Platform</div>
+                </div>
+                <div id="description">
+                    <h3 class="">Description:</h3>
+                    <div type="text" id="description" class="">@bug.Description</div>
+                </div>
+            </div>            
+        </div>
+    </div>
+}
