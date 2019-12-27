@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Home Page";
     var bugsList = ViewBag.BugsList as List<Bug>;
+    var displayName = "Seshadri Srinivasan";
+    var email = "seshadris@syncfusion.com";
 }
 
 @section styles{
@@ -9,31 +11,31 @@
 }
 
 @section MainSection{
-    <div class="jumbotron">
-        @if (bugsList != null && bugsList.Count > 0)
-        {
-            <table>
-                <tr>
-                    <th style="width:60%">Title</th>
-                    <th>Platform</th>
-                    <th>Created By</th>
-                    <th>Severity</th>
-                </tr>
-
-                @foreach (var bug in bugsList)
-                {
-                    <tr class="bug-container">
-                        <td><a href="@(Url.Action("ViewBug","Bugs") + "?id=" + bug.Id)" class="bug-title">@bug.Title</a></td>
-                        <td><span class="bug-platform">@bug.Platform.ToString()</span></td>
-                        <td><span class="bug-created-user">@bug.CreatedUser</span></td>
-                        <td><span class="bug-severity">@bug.Severity</span></td>
+        <div class="jumbotron">
+            @if (bugsList != null && bugsList.Count > 0)
+            {
+                <table>
+                    <tr>
+                        <th style="width:60%">Title</th>
+                        <th>Platform</th>
+                        <th>Created By</th>
+                        <th>Severity</th>
                     </tr>
-                }
-            </table>
-        }
-        else
-        {
 
-        }
-    </div>
+                    @foreach (var bug in bugsList)
+                    {
+                        <tr class="bug-container">
+                            <td><a href="@(Url.Action("ViewBug","Bugs") + "?id=" + bug.Id)" class="bug-title">@bug.Title</a></td>
+                            <td><span class="bug-platform">@bug.Platform.ToString()</span></td>
+                            <td><span class="bug-created-user">@bug.CreatedUser</span></td>
+                            <td><span class="bug-severity">@bug.Severity</span></td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+
+            }
+        </div>
 }

@@ -321,6 +321,7 @@
     <Content Include="Views\Bugs\CreateBug.cshtml" />
     <Content Include="Views\Bugs\ViewBug.cshtml" />
     <Content Include="Views\Bugs\_Validate.cshtml" />
+    <Content Include="Views\Bugs\Rewards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

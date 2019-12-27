@@ -116,6 +116,27 @@
     }
 }
 
+
+.user-detail {
+    padding-right: 60px;
+    padding-left: 60px;
+    width: 75%;
+    height: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-detail table {
+    width: 50%;
+    border: 0.5px solid #ccc;
+}
+
+.user-detail th {
+    height: 60px;
+    width: 50%;
+    padding-left: 10px;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #e9e9e9;
