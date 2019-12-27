@@ -10,6 +10,8 @@ namespace BugBounty
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            var customBundleOrder = new CustomBundleOrderer();
+
             var ejWaitingPopUp = new List<string>
             {
                 "~/scripts/essentialjs/common/ej.core.min.js",
@@ -23,6 +25,29 @@ namespace BugBounty
                 "~/Content/Styles/Fonts/font-Server.less",
                 "~/Content/Styles/Less/NewThemes/Mixins.less",
                 "~/Content/Styles/LESS/Accounts/footer.less"
+            };
+
+            //Scripts needed for rendering ejDialog Widget
+            var ejDialog = new List<string>
+            {
+                "~/scripts/essentialjs/common/ej.core.min.js",
+                "~/scripts/essentialjs/common/ej.draggable.min.js",
+                "~/scripts/essentialjs/common/ej.globalize.min.js",
+                "~/scripts/essentialjs/common/ej.scroller.min.js",
+                "~/scripts/essentialjs/common/ej.globalize.min.js",
+                "~/scripts/essentialjs/ej.dialog.min.js",
+                "~/scripts/essentialjs/ej.button.min.js"
+            };
+
+            //Scripts needed for rendering ejUploadBox Widget
+            var ejUploadBox = new List<string>
+            {
+                "~/scripts/essentialjs/common/ej.core.min.js",
+                "~/scripts/essentialjs/common/ej.draggable.min.js",
+                "~/scripts/essentialjs/common/ej.scroller.min.js",
+                "~/scripts/essentialjs/ej.tooltip.min.js",
+                "~/scripts/essentialjs/ej.dialog.min.js",
+                "~/scripts/essentialjs/ej.uploadbox.min.js"
             };
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -80,6 +105,36 @@ namespace BugBounty
                 "~/Scripts/Accounts/Login.js",
                 "~/Scripts/Accounts/SyncfusionLogin.js",
                 "~/Scripts/Password/ShowHidePassword.js"));
+
+
+            bundles.Add(new StyleBundle("~/bundles/Styles/view-incident").Include(
+                          "~/Content/Styles/Bootstrap/bootstrap.min.css",
+                          "~/Content/Styles/Fonts/font-server.less",
+                          "~/Content/Styles/LESS/Components/PageWrapper.less",
+                          "~/Content/Styles/Editor/easymde.min.css",
+                          "~/Content/Styles/style.css",
+                          "~/Content/Styles/LESS/report.less"));
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/view-incident")
+            {
+                Orderer = customBundleOrder
+            }.Include(
+                          new List<string>
+            {
+                "~/Scripts/jQuery/jquery-1.10.2.min.js",
+                "~/Scripts/jQuery/jquery.validate.min.js",
+                "~/Scripts/Bootstrap/bootstrap.min.js",
+                "~/Scripts/Editor/easymde.min.js",
+                "~/Scripts/Support.js"
+            }.Union(ejWaitingPopUp).Union(ejDialog).Union(ejUploadBox).ToArray()));
+        }
+
+        private class CustomBundleOrderer : IBundleOrderer
+        {
+            public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+            {
+                return files.Distinct();
+            }
         }
     }
 }

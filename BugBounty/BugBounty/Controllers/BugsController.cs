@@ -1,14 +1,16 @@
 ﻿namespace BugBounty.Controllers
 {
     using Bug.Bounty.Base;
+    using Bug.Bounty.DataClasses;
     using Newtonsoft.Json;
     using System;
     using System.Web.Mvc;
-    using Bug.Bounty.DataClasses;
+
 
     public class BugsController : Controller
     {
         private BugManagement _bugManagement = new BugManagement();
+        
         public bool Startup()
         {
             return _bugManagement.StartUp();
@@ -16,20 +18,29 @@
 
         public ActionResult Index()
         {
-            var userId = Guid.Parse("7e359732-edec-4d8c-a6f8-a7ae075a4761");
-            ViewBag.BugsList = _bugManagement.GetBugs(_bugManagement.GetUserDetails(userId).Platform, userId);
+            var user = _bugManagement.GetUser(HttpContext.User.Identity.Name);
+            ViewBag.BugsList = _bugManagement.GetBugs(user.Platform, user.Id);
             return View();
         }
 
         public ActionResult CreateBug()
         {
+            string[] names = Enum.GetNames(typeof(Platform));
+            ViewBag.Platforms = names;
             return View();
+        }
+
+        public void Upload()
+        {
+            new FileUpload().ProcessRequest(System.Web.HttpContext.Current);
         }
 
         [HttpPost]
         public JsonResult PostBug(string bugData)
         {
             var bug = JsonConvert.DeserializeObject<Bug>(bugData);
+            var user = _bugManagement.GetUser(HttpContext.User.Identity.Name);
+            bug.CreatedUserID = user.Id;
             bool result = false;
             if (bug.Id != null && bug.Id != Guid.Empty)
             {

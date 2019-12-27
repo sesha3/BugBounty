@@ -143,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\FileUpload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <Content Include="Content\Styles\Jcrop\images\jcrop.gif" />
     <Content Include="Content\Styles\Jcrop\Jcrop.min.css" />
     <Content Include="Content\Styles\LESS\Accounts\images\textboxLoader.gif" />
+    <Content Include="Content\Styles\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -263,6 +265,7 @@
     <Content Include="Content\Styles\LESS\UserManagement.less" />
     <Content Include="Content\Styles\LESS\Variables\ElementSize.less" />
     <Content Include="Content\Styles\LESS\Variables\FontSize.less" />
+    <Content Include="Content\Styles\report.less" />
     <None Include="Scripts\General\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\General\jquery-3.3.1.js" />
     <Content Include="Scripts\General\jquery-3.3.1.min.js" />
@@ -283,6 +286,7 @@
     <Content Include="Scripts\Password\ChangePassword.js" />
     <Content Include="Scripts\Password\PasswordPolicy.js" />
     <Content Include="Scripts\Password\ShowHidePassword.js" />
+    <Content Include="Scripts\Support.js" />
     <Content Include="Scripts\System\CheckMailSettings.js" />
     <Content Include="Scripts\User\AccountActivation.js" />
     <Content Include="Scripts\User\ActiveDirectoryUserImport.js" />
@@ -311,6 +315,7 @@
     <Content Include="Views\Shared\_Layout.Accounts.cshtml" />
     <Content Include="Views\Shared\_LocalizationContent.cshtml" />
     <Content Include="Views\Shared\_LoginForm.cshtml" />
+    <Content Include="Views\Bugs\CreateBug.cshtml" />
     <Content Include="Views\Bugs\ViewBug.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@
                         { "Description", bug.Description },
                         { "Title", bug.Title },
                         { "PlatformId", (int) bug.Platform },
+                        {"Image", bug.Attachments.Split('/').Last()},
                         { "CreatedUserId", bug.CreatedUserID },
                         { "IsActive", true }
                     };
@@ -434,7 +435,7 @@
 
         public User GetUser(string email)
         {
-            var data = new User();
+            var user = new User();
             try
             {
                 if (string.IsNullOrWhiteSpace(email))
@@ -444,21 +445,22 @@
 
                 var result = DataProvider.ExecuteReaderQuery(queryBuilder.IsExistingEmailQuery(email));
 
-                data = result.DataTable.AsEnumerable().Select(
-                        row => new User
-                        {
-                            Id = Guid.Parse(row.Field<object>("Id").ToString()),
-                            DisplayName = row.Field<string>("DisplayName"),
-                            Email = row.Field<string>("Email"),
-                            IsActive = bool.Parse(row.Field<object>("IsActive").ToString()),
-                        }).FirstOrDefault();
+                user = result.DataTable.AsEnumerable()
+               .Select(row => new User
+               {
+                   Id = Guid.Parse(row.Field<object>("Id").ToString()),
+                   Email = row.Field<string>("Email"),
+                   DisplayName = row.Field<string>("DisplayName"),
+                   Platform = (Platform)Enum.Parse(typeof(Platform), row.Field<object>("PlatformId").ToString()),
+                   Role = (UserRole)Enum.Parse(typeof(UserRole), row.Field<object>("UserRole").ToString()),
+               }).FirstOrDefault();
             }
             catch (Exception e)
             {
                 return null;
             }
 
-            return data;
+            return user;
         }
 
         public bool StartUp()
