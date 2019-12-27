@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Bug Bounty</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
+    @RenderSection("styles", false)
+</head>
+<body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a class="active" href="@Url.Action("Index", "Bugs")">Bug Bounty</a>
+                </li>
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Bugs")">My Bugs</a>
+                </li>
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Bugs")">My Platform</a>
+                </li>
+            </ul>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="topnav">
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><img src="~/Content/images/ham-menu.svg" /></a>
+                        <a class="active" href="@Url.Action("Index", "Bugs")">Bug Bounty</a>
+                        <a class="active" href="@Url.Action("CreateBug", "Bugs")" style="float:right">Create</a>
+                        <div class="search-container">
+                            <form action="@Url.Action("SearchBugs", "Bugs")">
+                                <input type="text" placeholder="Search.." name="search">
+                                <button type="submit" class="search-icon"><img src="~/Content/images/search.svg" /></button>
+                            </form>
+                        </div>
+                    </div>
+                    @RenderSection("MainSection", true)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+</html>
