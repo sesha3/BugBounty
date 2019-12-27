@@ -318,6 +318,7 @@
     <Content Include="Views\Shared\_LoginForm.cshtml" />
     <Content Include="Views\Bugs\CreateBug.cshtml" />
     <Content Include="Views\Bugs\ViewBug.cshtml" />
+    <Content Include="Views\Bugs\Rewards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

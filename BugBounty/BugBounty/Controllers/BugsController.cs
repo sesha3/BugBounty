@@ -76,5 +76,12 @@
         {
             return View();
         }
+
+        public ActionResult Rewards()
+        {
+            var user = _bugManagement.GetUser(HttpContext.User.Identity.Name);
+            ViewBag.BugsList = _bugManagement.GetBugs(user.Platform, user.Id);
+            return View();
+        }
     }
 }
