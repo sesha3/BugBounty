@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Home Page";
     var bugsList = ViewBag.BugsList as List<Bug>;
+    var displayName = "Seshadri Srinivasan";
+    var email = "seshadris@syncfusion.com";
 }
 
 @section styles{
@@ -9,31 +11,51 @@
 }
 
 @section MainSection{
-    <div class="jumbotron">
-        @if (bugsList != null && bugsList.Count > 0)
-        {
-            <table>
-                <tr>
-                    <th style="width:60%">Title</th>
-                    <th>Platform</th>
-                    <th>Created By</th>
-                    <th>Severity</th>
-                </tr>
-
-                @foreach (var bug in bugsList)
-                {
-                    <tr class="bug-container">
-                        <td><a href="@(Url.Action("ViewBug","Bugs") + "?id=" + bug.Id)" class="bug-title">@bug.Title</a></td>
-                        <td><span class="bug-platform">@bug.Platform.ToString()</span></td>
-                        <td><span class="bug-created-user">@bug.CreatedUser</span></td>
-                        <td><span class="bug-severity">@bug.Severity</span></td>
+    <div class="user-detail">
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>@displayName</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>@email</td>
+            </tr>
+            <tr>
+                <th>Created Bugs</th>
+                <td>5</td>
+            </tr>
+            <tr>
+                <th>Rewards</th>
+                <td>150</td>
+            </tr>
+        </table>
+     </div>
+        <div class="jumbotron">
+            @if (bugsList != null && bugsList.Count > 0)
+            {
+                <table>
+                    <tr>
+                        <th style="width:60%">Title</th>
+                        <th>Platform</th>
+                        <th>Created By</th>
+                        <th>Rewards</th>
                     </tr>
-                }
-            </table>
-        }
-        else
-        {
 
-        }
-    </div>
+                    @foreach (var bug in bugsList)
+                    {
+                        <tr class="bug-container">
+                            <td><a href="@(Url.Action("ViewBug","Bugs") + "?id=" + bug.Id)" class="bug-title">@bug.Title</a></td>
+                            <td><span class="bug-platform">@bug.Platform.ToString()</span></td>
+                            <td><span class="bug-created-user">@bug.CreatedUser</span></td>
+                            <td><span class="bug-severity">@bug.Severity</span></td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+
+            }
+        </div>
 }
